@@ -8,6 +8,7 @@ import 'package:lottie/lottie.dart';
 import 'package:store_commerce_shop/data/api/pdf_api.dart';
 import 'package:store_commerce_shop/models/cart_model/cart_model.dart';
 import 'package:store_commerce_shop/pages/cart/controller/cart_controller.dart';
+import 'package:store_commerce_shop/pages/cart/repo/cart_repo.dart';
 import 'package:store_commerce_shop/pages/main_page/naviagte_menu.dart';
 import 'package:store_commerce_shop/util/constants/image_string.dart';
 import 'package:store_commerce_shop/util/constants/sizes.dart';
@@ -183,66 +184,13 @@ class GeneratePdfPage extends StatelessWidget {
                             return;
                           }
 
-                          // if (keyForm.currentState!.validate()) {
-                          try {
-                            final cartItems = List<CartModel>.from(items);
+                          if (keyForm.currentState!.validate()) {
+                            try {
+                              final cartItems = List<CartModel>.from(items);
 
-                            // Step 1: Update the stock
-                            // TFullScreenLoader.openLoadingDialog(
-                            //   "Updating stock...",
-                            //   TImage.processing,
-                            // );
-                            // for (var item in items) {
-                            //   await cartController.decrementProductStock(
-                            //     item.product!,
-                            //     item.quantity!,
-                            //   );
-                            //   if (!stockUpdateSuccess) {
-                            //     break;
-                            //   }
-                            // }
-                            // TFullScreenLoader.stopLoading();
-
-                            // Step 2: Generate PDF and add to cart history
-                            // if (stockUpdateSuccess) {
-                            TFullScreenLoader.openLoadingDialog(
-                              "Loading Pdf...",
-                              TImage.processing,
-                            );
-
-                            // Generate invoice number
-                            invoiceNumber = await generateQuotationCode();
-
-                            await PdfApi.openGeneratedInvoice(
-                              cartItems,
-                              totalPrice,
-                              discount,
-                              nameController.text,
-                              phoneController.text,
-                              addressController.text,
-                              dliveryTime.text,
-                              invoiceNumber,
-                            );
-
-                            // await CartRepo().addToCartHistory(
-                            //   cartItems,
-                            //   DateTime.now(),
-                            // ); // Update favorite products before clearing the cart
-
-                            // Future.delayed(Duration(milliseconds: 1500),
-                            //     () {
-                            //   cartController.clearCart();
-                            // });
-                            // }
-                          } catch (e) {
-                            TFullScreenLoader.stopLoading();
-                            TLoaders.errorSnackBar(
-                              title: "Error generating and opening invoice",
-                              message: e.toString(),
-                            );
-                            if (!stockUpdateSuccess) {
+                              // Step 1: Update the stock
                               TFullScreenLoader.openLoadingDialog(
-                                "Rolling back stock...",
+                                "Updating stock...",
                                 TImage.processing,
                               );
                               for (var item in items) {
@@ -250,17 +198,70 @@ class GeneratePdfPage extends StatelessWidget {
                                   item.product!,
                                   item.quantity!,
                                 );
+                                if (!stockUpdateSuccess) {
+                                  break;
+                                }
                               }
                               TFullScreenLoader.stopLoading();
+
+                              // Step 2: Generate PDF and add to cart history
+                              if (stockUpdateSuccess) {
+                                TFullScreenLoader.openLoadingDialog(
+                                  "Loading Pdf...",
+                                  TImage.processing,
+                                );
+
+                                // Generate invoice number
+                                invoiceNumber = await generateQuotationCode();
+
+                                await PdfApi.openGeneratedInvoice(
+                                  cartItems,
+                                  totalPrice,
+                                  discount,
+                                  nameController.text,
+                                  phoneController.text,
+                                  addressController.text,
+                                  dliveryTime.text,
+                                  invoiceNumber,
+                                );
+
+                                await CartRepo().addToCartHistory(
+                                  cartItems,
+                                  DateTime.now(),
+                                ); // Update favorite products before clearing the cart
+
+                                Future.delayed(Duration(milliseconds: 1500),
+                                    () {
+                                  cartController.clearCart();
+                                });
+                              }
+                            } catch (e) {
+                              TFullScreenLoader.stopLoading();
+                              TLoaders.errorSnackBar(
+                                title: "Error generating and opening invoice",
+                                message: e.toString(),
+                              );
+                              if (!stockUpdateSuccess) {
+                                TFullScreenLoader.openLoadingDialog(
+                                  "Rolling back stock...",
+                                  TImage.processing,
+                                );
+                                for (var item in items) {
+                                  await cartController.decrementProductStock(
+                                    item.product!,
+                                    item.quantity!,
+                                  );
+                                }
+                                TFullScreenLoader.stopLoading();
+                              }
+                            } finally {
+                              if (stockUpdateSuccess) {
+                                Future.delayed(Duration(seconds: 2), () {
+                                  Get.offAll(() => NavigationMenu());
+                                });
+                              }
                             }
-                          } finally {
-                            // if (stockUpdateSuccess) {
-                            //   Future.delayed(Duration(seconds: 2), () {
-                            //     Get.offAll(() => NavigationMenu());
-                            //   });
-                            // }
                           }
-                          // }
                         },
                         child: const Text("Generate"),
                       ),

@@ -586,7 +586,8 @@ class PdfApi {
                                 ),
                                 pw.SizedBox(width: 2),
                                 pw.Text(
-                                  ' ${DateFormat('dd/MM/yyyy').format(DateTime.now())}',
+                                  DateFormat('dd/MM/yyyy')
+                                      .format(DateTime.now()),
                                   style: pw.TextStyle(
                                     fontSize: 7,
                                     fontWeight: pw.FontWeight.bold,
