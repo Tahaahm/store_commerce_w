@@ -15,13 +15,6 @@ import 'package:store_commerce_shop/util/constants/text_strings.dart';
 import 'package:store_commerce_shop/util/dimention/dimention.dart';
 
 class PdfApi {
-  static int _quotationCounter = -0; // Initialize counter at -1 to start from 0
-
-  static String generateQuotationCode() {
-    _quotationCounter++;
-    return 'IN${_quotationCounter}'; // Generate quotation code starting from 0
-  }
-
   static Future<File> saveDocument({
     required String name,
     required pw.Document pdf,
