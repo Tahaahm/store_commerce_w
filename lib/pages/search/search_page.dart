@@ -74,12 +74,24 @@ class SearchPage extends StatelessWidget {
 
                 if (searchResults.isEmpty) {
                   // Show empty image if search results are empty
-                  return Center(
-                    child: Image.asset(
-                      TImage
-                          .emptyBoxImage, // Replace with your empty image asset path
-                      height: 280,
-                      width: 280,
+                  return SingleChildScrollView(
+                    physics: NeverScrollableScrollPhysics(),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            TImage
+                                .emptyBoxImage, // Replace with your empty image asset path
+                            height: 280,
+                            width: 280,
+                          ),
+                          Text(
+                            "Empty Searching",
+                            style: Theme.of(context).textTheme.titleLarge,
+                          )
+                        ],
+                      ),
                     ),
                   );
                 }

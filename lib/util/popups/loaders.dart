@@ -53,4 +53,19 @@ class TLoaders {
           color: TColors.white,
         ));
   }
+
+  static infoSnackBar({required title, message = "", duration = 3}) {
+    Get.snackbar(title, message,
+        isDismissible: true,
+        shouldIconPulse: true,
+        colorText: Colors.white,
+        backgroundColor: Colors.amber,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: duration),
+        margin: EdgeInsets.all(20),
+        icon: Icon(
+          Iconsax.warning_2,
+          color: TColors.white,
+        ));
+  }
 }

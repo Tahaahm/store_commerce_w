@@ -118,6 +118,14 @@ class CartController extends GetxController {
                   message:
                       "Successfully add ${product.title} from $title to the Cart")
               : null;
+          if (currentStock <= 3) {
+            // Show a snackbar if the stock is 3 or less
+            TLoaders.infoSnackBar(
+              title: "Low Stock Alert",
+              message:
+                  "${product.title} has a low stock of $currentStock. Consider restocking soon.",
+            );
+          }
         } else {
           // If adding the new quantity exceeds the stock, show a warning
           TLoaders.warningSnackBar(

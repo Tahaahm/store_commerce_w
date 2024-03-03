@@ -302,7 +302,7 @@ class GeneratePdfPage extends StatelessWidget {
           // Update the document with the new number
           transaction.update(docRef, {'number': newNumber});
 
-          return 'SN$newNumber';
+          return 'IN$newNumber';
         },
       );
 
