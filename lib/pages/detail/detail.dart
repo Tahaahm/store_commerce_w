@@ -9,8 +9,10 @@ import 'package:store_commerce_shop/constant/colors.dart';
 import 'package:store_commerce_shop/constant/widgets/app_bar/custom_appbar.dart';
 import 'package:store_commerce_shop/pages/cart/controller/cart_controller.dart';
 import 'package:store_commerce_shop/pages/cart/shopping/shopping_cart.dart';
+import 'package:store_commerce_shop/pages/home/controller/supcategory_controller.dart';
 import 'package:store_commerce_shop/util/dimention/dimention.dart';
 import 'package:store_commerce_shop/util/helpers/helper_functions.dart';
+import 'package:store_commerce_shop/util/popups/loaders.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage(
@@ -26,6 +28,33 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
+
+    Future<void> checkLowStockProducts() async {
+      // Fetch products for the current brand
+      final products = await FetchController.instance.fetchProductsForBrand(
+        supcategoryId,
+        categoryId,
+        brandId,
+      );
+
+      // Check if any product has 3 or less stock
+      final lowStockProducts =
+          products.where((product) => product.stock <= 5).toList();
+
+      if (lowStockProducts.isNotEmpty) {
+        // Get the names of the low stock products
+        final lowStockProductNames =
+            lowStockProducts.map((product) => product.title).toList();
+
+        // Display a warning snackbar with the names of the low stock products
+        TLoaders.infoSnackBar(
+          title: "Low Stock Products",
+          message:
+              "The following products have low stock: \n ${lowStockProductNames.join(", ")}",
+        );
+      }
+    }
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(Dimentions.width10),
@@ -109,10 +138,15 @@ class DetailPage extends StatelessWidget {
             ),
             Expanded(
               flex: 13,
-              child: TProductItemsDetail(
-                supcategoryId: supcategoryId,
-                categoryId: categoryId,
-                brandId: brandId,
+              child: FutureBuilder(
+                future: checkLowStockProducts(),
+                builder: (context, snapshot) {
+                  return TProductItemsDetail(
+                    supcategoryId: supcategoryId,
+                    categoryId: categoryId,
+                    brandId: brandId,
+                  );
+                },
               ),
             ),
           ],

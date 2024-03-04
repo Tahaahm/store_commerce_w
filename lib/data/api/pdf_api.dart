@@ -88,7 +88,7 @@ class PdfApi {
     final headers = [
       '',
       'Description',
-      'Image',
+      'IMG',
       "Made In",
       "Code",
       'Q',
@@ -124,8 +124,10 @@ class PdfApi {
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
                   pw.Row(children: [
-                    pw.Text("-"),
-                    pw.Text(item.name!),
+                    pw.Text("- "),
+                    pw.Text(item.name!,
+                        style: pw.TextStyle(
+                            fontSize: 11, fontWeight: pw.FontWeight.bold)),
                   ]),
                   for (var line in descriptionLines)
                     line.isNotEmpty
@@ -135,14 +137,23 @@ class PdfApi {
                                 pw.Row(
                                   crossAxisAlignment:
                                       pw.CrossAxisAlignment.start,
-                                  mainAxisAlignment: pw.MainAxisAlignment.start,
                                   children: [
-                                    pw.Text("-"),
+                                    pw.SizedBox(
+                                        width:
+                                            5), // Adjust the width as needed for spacing
+                                    pw.Text(
+                                      "-",
+                                      style: pw.TextStyle(fontSize: 8),
+                                    ),
                                     pw.Expanded(
                                       child: pw.Text(
                                         line,
-                                        textAlign: pw.TextAlign
-                                            .left, // Align text to the left
+                                        textAlign: pw.TextAlign.left,
+                                        style: pw.TextStyle(
+                                          fontSize: 8,
+                                          lineSpacing:
+                                              0.8, // Adjust the lineHeight to reduce spacing
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -158,22 +169,25 @@ class PdfApi {
                       if (item.product!.height != 0 ||
                           item.product!.width != 0 ||
                           item.product!.depth != 0)
-                        pw.Text(dimension),
+                        pw.Text(dimension, style: pw.TextStyle(fontSize: 8)),
                     ],
                   ),
                   pw.Row(
                     children: [
                       pw.Text("-"),
-                      pw.Text(item.product!.weight.toString() + "KG"),
+                      pw.Text(item.product!.weight.toString() + "KG",
+                          style: pw.TextStyle(fontSize: 8)),
                       pw.SizedBox(width: 15),
                       item.product!.power != 0 ? pw.Text("-") : pw.SizedBox(),
                       item.product!.power != 0
-                          ? pw.Text(item.product!.power.toString() + "KW")
+                          ? pw.Text(item.product!.power.toString() + "KW",
+                              style: pw.TextStyle(fontSize: 8))
                           : pw.SizedBox(),
                       pw.SizedBox(width: 15),
                       item.product!.volume != 0 ? pw.Text("-") : pw.SizedBox(),
                       item.product!.volume != 0
-                          ? pw.Text(item.product!.volume.toString() + "L")
+                          ? pw.Text(item.product!.volume.toString() + "L",
+                              style: pw.TextStyle(fontSize: 8))
                           : pw.SizedBox(),
                     ],
                   ),
@@ -192,21 +206,23 @@ class PdfApi {
         ),
         pw.Container(
           width: 50,
-          child: pw.Text(item.product!.brand),
+          child: pw.Text(item.product!.brand, style: pw.TextStyle(fontSize: 8)),
         ),
         pw.Container(
           width: 50,
-          child: pw.Text(item.product!.material),
+          child:
+              pw.Text(item.product!.material, style: pw.TextStyle(fontSize: 8)),
         ),
         item.quantity,
         pw.Container(
           width: 45,
-          child: pw.Text('$currencySymbol${item.price}'),
+          child: pw.Text('$currencySymbol${item.price}',
+              style: pw.TextStyle(fontSize: 8)),
         ),
         pw.Container(
           width: 45,
-          child:
-              pw.Text('$currencySymbol$totalPrice'), // Add the total price cell
+          child: pw.Text('$currencySymbol$totalPrice',
+              style: pw.TextStyle(fontSize: 8)), // Add the total price cell
         ),
       ];
     }));
@@ -226,9 +242,9 @@ class PdfApi {
     pdf.addPage(
       pw.MultiPage(
           pageFormat: PdfPageFormat.a4.copyWith(
-            marginLeft: 4.0,
-            marginRight: 4.0,
-            marginTop: 0.0,
+            marginLeft: 10.0,
+            marginRight: 10.0,
+            marginTop: 10.0,
             marginBottom: 0.0,
           ),
           orientation: pw.PageOrientation.portrait,

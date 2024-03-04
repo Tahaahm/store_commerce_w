@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use, unnecessary_string_interpolations
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, unnecessary_string_interpolations, await_only_futures
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:store_commerce_shop/common/widgets/images/t_rounded_image.dart';
 import 'package:store_commerce_shop/common/widgets/layouts/grid_layout.dart';
+import 'package:store_commerce_shop/common/widgets/shimmer/t_list_shimmer.dart';
 import 'package:store_commerce_shop/constant/colors.dart';
 import 'package:store_commerce_shop/constant/widgets/app_bar/custom_appbar.dart';
 import 'package:store_commerce_shop/models/products/product_model.dart';
@@ -26,7 +27,13 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   void initState() {
     super.initState();
-    _favoriteProductsFuture = CartController.instance.getFavoriteProducts();
+    _refreshFavoriteProducts();
+  }
+
+  Future<void> _refreshFavoriteProducts() async {
+    setState(() {
+      _favoriteProductsFuture = CartController.instance.getFavoriteProducts();
+    });
   }
 
   @override
@@ -44,9 +51,7 @@ class _FavoritePageState extends State<FavoritePage> {
               future: _favoriteProductsFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return TListShimmer();
                 } else if (snapshot.hasError) {
                   return Center(
                     child: Text('Error: ${snapshot.error}'),
@@ -103,9 +108,8 @@ class _FavoritePageState extends State<FavoritePage> {
           : EdgeInsets.all(16),
       child: GestureDetector(
         onLongPress: () {
-          setState(() {
-            CartController.instance.removeFromFavorite(product);
-          });
+          CartController.instance.removeFromFavorite(product);
+          _refreshFavoriteProducts();
         },
         child: Container(
           decoration: BoxDecoration(

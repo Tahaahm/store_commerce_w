@@ -25,6 +25,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
+    final exchangeRateController = Get.put(ExchangeRateController());
     return Scaffold(
         body: Stack(
           children: [
@@ -47,10 +48,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                   ),
                   PopupMenuButton<String>(
                     icon: Obx(() {
-                      final isLoading =
-                          ExchangeRateController.instance.isLoading.value;
-                      final iqdAmount =
-                          ExchangeRateController.instance.iqdAmount.value;
+                      final isLoading = exchangeRateController.isLoading.value;
+                      final iqdAmount = exchangeRateController.iqdAmount.value;
                       return Row(
                         children: [
                           Text(
@@ -67,7 +66,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                     onSelected: (String value) {
                       if (value == 'iqd') {
                         // Call a function to refresh the IQD amount here
-                        ExchangeRateController.instance.fetchIqdAmount();
+                        exchangeRateController.fetchIqdAmount(true);
                         CartController.instance.updateTotalAmount();
                       }
                     },
@@ -264,7 +263,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                                                     .error)),
                                                     SizedBox(
                                                       width:
-                                                          Dimentions.height60,
+                                                          Dimentions.height60 +
+                                                              10,
                                                       child: Wrap(
                                                         children: [
                                                           Text(

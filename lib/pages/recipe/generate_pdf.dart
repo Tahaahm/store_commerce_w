@@ -99,6 +99,10 @@ class GeneratePdfPage extends StatelessWidget {
                                 prefixIcon: Icon(Iconsax.people),
                                 labelText: TText.name,
                               ),
+                              // Capitalize the first letter of the input
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              textCapitalization: TextCapitalization.words,
                             ),
                           ),
                           SizedBox(
@@ -139,6 +143,9 @@ class GeneratePdfPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              textCapitalization: TextCapitalization.words,
                             ),
                           ),
                           SizedBox(
@@ -189,6 +196,20 @@ class GeneratePdfPage extends StatelessWidget {
                               final cartItems = List<CartModel>.from(items);
 
                               // Step 1: Update the stock
+
+                              TFullScreenLoader.openLoadingDialog(
+                                "Generate Code",
+                                TImage.processing,
+                              );
+                              invoiceNumber = await generateQuotationCode();
+                              // Retry if generateQuotationCode failed
+                              if (invoiceNumber.isEmpty) {
+                                TLoaders.errorSnackBar(
+                                  title: "Error generating quotation code",
+                                  message: "Retrying...",
+                                );
+                                TFullScreenLoader.stopLoading();
+                              }
                               TFullScreenLoader.openLoadingDialog(
                                 "Updating stock...",
                                 TImage.processing,
@@ -212,7 +233,6 @@ class GeneratePdfPage extends StatelessWidget {
                                 );
 
                                 // Generate invoice number
-                                invoiceNumber = await generateQuotationCode();
 
                                 await PdfApi.openGeneratedInvoice(
                                   cartItems,
@@ -234,6 +254,11 @@ class GeneratePdfPage extends StatelessWidget {
                                     () {
                                   cartController.clearCart();
                                 });
+                                if (stockUpdateSuccess) {
+                                  Future.delayed(Duration(seconds: 2), () {
+                                    Get.offAll(() => NavigationMenu());
+                                  });
+                                }
                               }
                             } catch (e) {
                               TFullScreenLoader.stopLoading();
@@ -253,12 +278,6 @@ class GeneratePdfPage extends StatelessWidget {
                                   );
                                 }
                                 TFullScreenLoader.stopLoading();
-                              }
-                            } finally {
-                              if (stockUpdateSuccess) {
-                                Future.delayed(Duration(seconds: 2), () {
-                                  Get.offAll(() => NavigationMenu());
-                                });
                               }
                             }
                           }

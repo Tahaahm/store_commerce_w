@@ -343,6 +343,23 @@ class TProductCardVertical extends StatelessWidget {
                                   : product.stock <= 5
                                       ? TColors.warning
                                       : Colors.green)),
+                      product.stock <= 2
+                          ? Text(" (Low)",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall!
+                                  .apply(color: TColors.error))
+                          : product.stock <= 5
+                              ? Text(" (Medium)",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall!
+                                      .apply(color: TColors.warning))
+                              : Text(" (Very Good)",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall!
+                                      .apply(color: TColors.success))
                     ],
                   ),
                 ],
