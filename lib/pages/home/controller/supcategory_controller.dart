@@ -1,4 +1,6 @@
-// ignore_for_file: avoid_print, unused_field, prefer_const_constructors
+// ignore_for_file: avoid_print, unused_field, prefer_const_constructors, unused_local_variable
+
+import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,10 +14,42 @@ import 'package:store_commerce_shop/repository/fetch_repository/fetch_repository
 import 'package:store_commerce_shop/util/popups/loaders.dart';
 
 class FetchController extends GetxController {
+  Timer? _timer;
+
   @override
   void onInit() {
     fetchSupcategories();
+    startUserCheckTimer(); // Start the timer for user check
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    _timer?.cancel(); // Cancel the timer when the controller is closed
+    super.onClose();
+  }
+
+  void startUserCheckTimer() async {
+    const duration = Duration(seconds: 300);
+    _timer = Timer.periodic(duration, (timer) async {
+      final user = FirebaseAuth.instance.currentUser;
+
+      // Check if the user is logged in
+      if (user != null) {
+        final userSnapshot = await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(user.uid)
+            .get();
+        if (userSnapshot.exists) {
+          print("Good");
+        } else {
+          Get.offAll(() => LoginPage());
+        }
+      } else {
+        // User is not logged in, navigate to LoginPage
+        Get.offAll(() => LoginPage());
+      }
+    });
   }
 
   static FetchController get instance => Get.find();

@@ -70,6 +70,11 @@ class VerifyEmailController extends GetxController {
           },
         ),
       );
+    } else {
+      TLoaders.warningSnackBar(
+        title: "Notification!",
+        message: "you didnt verify your email , Please First verify your email",
+      );
     }
   }
 }

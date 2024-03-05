@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, unused_element
 
 import 'dart:async';
 
@@ -48,6 +48,13 @@ class _VerfiyEmailScreenState extends State<VerfiyEmailScreen> {
         }
       },
     );
+  }
+
+  void _restartTimer() {
+    setState(() {
+      _start = 60;
+      _startTimer();
+    });
   }
 
   @override

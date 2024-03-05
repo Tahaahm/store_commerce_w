@@ -16,47 +16,50 @@ class ForgetPassword extends StatelessWidget {
     final controller = Get.put(FogetPasswordController());
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: EdgeInsets.all(Dimentions.height12),
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                TText.forgetPasswordTitle,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              SizedBox(
-                height: Dimentions.height16,
-              ),
-              Text(
-                TText.forgetPasswordSubTitle,
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
-              SizedBox(height: Dimentions.height60),
-              SizedBox(
-                width: Dimentions.pageView400,
-                child: Form(
-                  key: controller.forgetPasswordFormKey,
-                  child: TextFormField(
-                    controller: controller.email,
-                    validator: TValidator.validateEmail,
-                    decoration: InputDecoration(
-                        labelText: TText.email,
-                        prefixIcon: Icon(Iconsax.direct_right)),
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.all(Dimentions.height12),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  TText.forgetPasswordTitle,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                SizedBox(
+                  height: Dimentions.height16,
+                ),
+                Text(
+                  TText.forgetPasswordSubTitle,
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+                SizedBox(height: Dimentions.height60),
+                SizedBox(
+                  width: Dimentions.pageView400,
+                  child: Form(
+                    key: controller.forgetPasswordFormKey,
+                    child: TextFormField(
+                      controller: controller.email,
+                      validator: TValidator.validateEmail,
+                      decoration: InputDecoration(
+                          labelText: TText.email,
+                          prefixIcon: Icon(Iconsax.direct_right)),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: Dimentions.height32,
-              ),
-              SizedBox(
-                width: Dimentions.pageView500 - 50,
-                child: ElevatedButton(
-                    onPressed: () => controller.sendPasswordResetEmail(),
-                    child: Text(TText.submit)),
-              ),
-            ],
+                SizedBox(
+                  height: Dimentions.height32,
+                ),
+                SizedBox(
+                  width: Dimentions.pageView500 - 50,
+                  child: ElevatedButton(
+                      onPressed: () => controller.sendPasswordResetEmail(),
+                      child: Text(TText.submit)),
+                ),
+              ],
+            ),
           ),
         ),
       ),
