@@ -15,7 +15,7 @@ class ExchangeRateController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _timer = Timer.periodic(Duration(seconds: 25), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 50), (timer) {
       fetchIqdAmount(false);
     });
   }
