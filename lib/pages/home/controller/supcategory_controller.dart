@@ -30,7 +30,7 @@ class FetchController extends GetxController {
   }
 
   void startUserCheckTimer() async {
-    const duration = Duration(seconds: 300);
+    const duration = Duration(seconds: 240);
     _timer = Timer.periodic(duration, (timer) async {
       final user = FirebaseAuth.instance.currentUser;
 
@@ -45,9 +45,6 @@ class FetchController extends GetxController {
         } else {
           Get.offAll(() => LoginPage());
         }
-      } else {
-        // User is not logged in, navigate to LoginPage
-        Get.offAll(() => LoginPage());
       }
     });
   }
