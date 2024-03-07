@@ -242,9 +242,9 @@ class PdfApi {
     pdf.addPage(
       pw.MultiPage(
           pageFormat: PdfPageFormat.a4.copyWith(
-            marginLeft: 10.0,
-            marginRight: 10.0,
-            marginTop: 10.0,
+            marginLeft: 15.0,
+            marginRight: 15.0,
+            marginTop: 15.0,
             marginBottom: 0.0,
           ),
           orientation: pw.PageOrientation.portrait,
