@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, prefer_interpolation_to_compose_strings, prefer_is_empty, unused_local_variable, unnecessary_null_comparison, avoid_print
+// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, prefer_adjacent_string_concatenation, prefer_interpolation_to_compose_strings, prefer_is_empty, unused_local_variable, unnecessary_null_comparison, avoid_print, unrelated_type_equality_checks, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -415,108 +415,127 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
         bottomNavigationBar: GetBuilder<CartController>(
           builder: (controller) {
             final finacial = ExchangeRateController.instance;
-            return Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Container(
-                height: Dimentions.height20 * 6,
-                decoration: BoxDecoration(
-                  color: dark ? TColors.dark : TColors.light,
-                  borderRadius: BorderRadius.circular(Dimentions.height12),
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: Dimentions.width10,
-                  vertical: Dimentions.height30,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Obx(() {
-                      return SizedBox(
-                        width: Dimentions.pageView200 - 80,
-                        child: Container(
-                          padding: EdgeInsets.all(Dimentions.width20),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(Dimentions.height20),
-                            color: dark
-                                ? TColors.darkGrey.withOpacity(0.4)
-                                : Colors.white,
-                          ),
-                          child: Center(
-                            child: Text(
-                              "\$" +
-                                  "${calculateDiscountedTotal(_selectedDiscount, controller.getTotalAmount())}",
-                            ),
-                          ),
+            return Obx(() {
+              return finacial.iqdAmount != 0.0
+                  ? Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Container(
+                        height: Dimentions.height20 * 6,
+                        decoration: BoxDecoration(
+                          color: dark ? TColors.dark : TColors.light,
+                          borderRadius:
+                              BorderRadius.circular(Dimentions.height12),
                         ),
-                      );
-                    }),
-                    SizedBox(
-                      width: Dimentions.height5,
-                    ),
-                    Expanded(
-                      flex: 5,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          DropdownButton<int>(
-                            value: _selectedDiscount,
-                            onChanged: (int? newValue) {
-                              if (newValue != null) {
-                                setState(() {
-                                  _selectedDiscount = newValue;
-                                });
-                              }
-                            },
-                            items: List.generate(16, (index) => index)
-                                .map<DropdownMenuItem<int>>((int value) {
-                              return DropdownMenuItem<int>(
-                                value: value,
-                                child: Text(
-                                  value.toString() + " %OFF",
-                                  style: TextStyle(color: TColors.primaryColor),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: Dimentions.width10,
+                          vertical: Dimentions.height30,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Obx(() {
+                              return SizedBox(
+                                width: Dimentions.pageView200 - 80,
+                                child: Container(
+                                  padding: EdgeInsets.all(Dimentions.width20),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimentions.height20),
+                                    color: dark
+                                        ? TColors.darkGrey.withOpacity(0.4)
+                                        : Colors.white,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "\$" +
+                                          "${calculateDiscountedTotal(_selectedDiscount, controller.getTotalAmount())}",
+                                    ),
+                                  ),
                                 ),
                               );
-                            }).toList(),
-                            underline: Container(),
-                            icon: Icon(Icons.arrow_drop_down,
-                                color: TColors.primaryColor),
-                          ),
-                          SizedBox(width: Dimentions.height10),
-                          GestureDetector(
-                            onTap: () async {
-                              controller
-                                  .deleteAccountWarningPopup(_selectedDiscount);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(Dimentions.width20),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(Dimentions.height20),
-                                color: TColors.primaryColor,
-                              ),
+                            }),
+                            SizedBox(
+                              width: Dimentions.height5,
+                            ),
+                            Expanded(
+                              flex: 5,
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(
-                                    "Check Out",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .apply(color: TColors.white),
+                                  DropdownButton<int>(
+                                    value: _selectedDiscount,
+                                    onChanged: (int? newValue) {
+                                      if (newValue != null) {
+                                        setState(() {
+                                          _selectedDiscount = newValue;
+                                        });
+                                      }
+                                    },
+                                    items: List.generate(16, (index) => index)
+                                        .map<DropdownMenuItem<int>>(
+                                            (int value) {
+                                      return DropdownMenuItem<int>(
+                                        value: value,
+                                        child: Text(
+                                          value.toString() + " %OFF",
+                                          style: TextStyle(
+                                              color: TColors.primaryColor),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    underline: Container(),
+                                    icon: Icon(Icons.arrow_drop_down,
+                                        color: TColors.primaryColor),
+                                  ),
+                                  SizedBox(width: Dimentions.height10),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      controller.deleteAccountWarningPopup(
+                                          _selectedDiscount);
+                                    },
+                                    child: Container(
+                                      padding:
+                                          EdgeInsets.all(Dimentions.width20),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            Dimentions.height20),
+                                        color: TColors.primaryColor,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Check Out",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineSmall!
+                                                .apply(color: TColors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Center(
+                            child: Text(
+                                "Please The IQD is Empty please fetch that"),
                           ),
                         ],
                       ),
-                    )
-                  ],
-                ),
-              ),
-            );
+                    );
+            });
           },
         ));
   }

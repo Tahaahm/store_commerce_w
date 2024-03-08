@@ -15,6 +15,7 @@ class ExchangeRateController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchIqdAmount(true);
     _timer = Timer.periodic(Duration(seconds: 60), (timer) {
       fetchIqdAmount(false);
     });
@@ -23,7 +24,6 @@ class ExchangeRateController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    // Cancel the timer when the controller is closed to prevent memory leaks
     _timer.cancel();
   }
 
