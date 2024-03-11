@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, unused_local_variable
 
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -19,10 +18,6 @@ void main() async {
   // Storage
   await GetStorage.init();
   // Check
-  await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.playIntegrity,
-    appleProvider: AppleProvider.appAttest,
-  );
 
   runApp(const MyApp());
 }
