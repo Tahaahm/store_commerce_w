@@ -11,7 +11,9 @@ class CartModel {
   String? time;
   bool? isExist;
   ProductModel? product;
-  String? userId; // Add userId field
+  String? userId;
+  int discount;
+  String? buyName; // Added buyName field
 
   CartModel({
     this.id,
@@ -22,20 +24,10 @@ class CartModel {
     this.time,
     this.isExist,
     this.product,
-    this.userId, // Initialize userId field in the constructor
+    this.userId,
+    this.discount = 0,
+    this.buyName, // Initialized buyName field in the constructor
   });
-
-  get volume => null;
-
-  get power => null;
-
-  get brand => null;
-
-  get height => null;
-
-  get width => null;
-
-  get depth => null;
 
   Map<String, dynamic> toMap() {
     return {
@@ -47,7 +39,9 @@ class CartModel {
       'time': time,
       'isExist': isExist,
       'product': product!.toJson(),
-      'userId': userId, // Include userId in the toMap method
+      'userId': userId,
+      'discount': discount,
+      'buyName': buyName, // Included buyName in the toMap method
     };
   }
 
@@ -61,9 +55,12 @@ class CartModel {
       time: doc['time'],
       isExist: doc['isExist'],
       product: ProductModel.fromFirestore(doc['product']),
-      userId: doc['userId'], // Get userId from Firestore
+      userId: doc['userId'],
+      discount: doc['discount'] ?? 0,
+      buyName: doc['buyName'], // Get buyName from Firestore
     );
   }
+
   factory CartModel.fromJson(Map<String, dynamic> json) {
     return CartModel(
       id: json['id'],
@@ -74,7 +71,9 @@ class CartModel {
       time: json['time'],
       isExist: json['isExist'],
       product: ProductModel.fromJson(json['product']),
-      userId: json['userId'], // Get userId from JSON
+      userId: json['userId'],
+      discount: json['discount'] ?? 0,
+      buyName: json['buyName'], // Get buyName from JSON
     );
   }
 
@@ -88,7 +87,9 @@ class CartModel {
       'time': time,
       'isExist': isExist,
       'product': product!.toJson(),
-      'userId': userId, // Include userId in the toJson method
+      'userId': userId,
+      'discount': discount,
+      'buyName': buyName, // Include buyName in the toJson method
     };
   }
 

@@ -48,6 +48,7 @@ class CartHistoryPage extends StatelessWidget {
                   Text(
                     "History is empty please to create Invoice it will Authomaticlly added by it self!!",
                     style: Theme.of(context).textTheme.titleLarge,
+                    textAlign: TextAlign.center,
                   )
                 ],
               )); // Show empty image

@@ -246,9 +246,11 @@ class GeneratePdfPage extends StatelessWidget {
                                 );
 
                                 await CartRepo().addToCartHistory(
-                                  cartItems,
-                                  DateTime.now(),
-                                ); // Update favorite products before clearing the cart
+                                    cartItems,
+                                    DateTime.now(),
+                                    discount,
+                                    nameController
+                                        .text); // Update favorite products before clearing the cart
 
                                 Future.delayed(Duration(milliseconds: 1500),
                                     () {

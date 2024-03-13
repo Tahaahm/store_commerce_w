@@ -544,8 +544,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     double originalTotal = totalNumber; // Replace this with the actual total
     double discountPercentage = (100 - selectedDiscount) / 100;
     double discountedTotal = originalTotal * discountPercentage;
-    return discountedTotal
-        .round()
-        .toString(); // Round the discounted total to the nearest integer value
+    return discountedTotal.round().toString();
   }
 }

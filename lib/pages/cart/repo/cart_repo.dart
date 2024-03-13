@@ -102,15 +102,30 @@ class CartRepo {
     }
   }
 
-  Future<void> addToCartHistory(
-      List<CartModel> cartItems, DateTime orderTime) async {
+  Future<void> addToCartHistory(List<CartModel> cartItems, DateTime orderTime,
+      int discount, String buyerName) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       List<String> cartHistory = prefs.getStringList(_cartHistoryKey) ?? [];
+
+      // Add each cart item to the cart history along with the given discount and buyer name
       for (final item in cartItems) {
         item.time = orderTime.toString(); // Set the time for each cart item
-        cartHistory.add(jsonEncode(item.toJson()));
+
+        // Set the discount for the cart item
+        item.discount = discount;
+
+        // Set the buyer name for the cart item
+        item.buyName = buyerName;
+
+        // Convert the cart item to a Map
+        final Map<String, dynamic> itemMap = item.toJson();
+
+        // Encode the cart item Map to JSON and add it to the cart history
+        cartHistory.add(jsonEncode(itemMap));
       }
+
+      // Store the updated cart history in SharedPreferences
       await prefs.setStringList(_cartHistoryKey, cartHistory);
     } catch (e) {
       print('Error adding to cart history: $e');
