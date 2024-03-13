@@ -10,7 +10,7 @@ class TText {
   static const String onBoardingSubTitle3 =
       "Discover the latest trends in kitchen technology and design, and stay up-to-date with the newest arrivals and promotions.";
 
-  static const String homeAppBarTitle = "Good day for shopping";
+  static const String homeAppBarTitle = "Roma Steel.Co";
   static const String homeAppBarSubTitle = "Taimoor Sikander";
 
   static const String firstName = "First Name";

@@ -77,7 +77,7 @@ class AuthenticationRepository extends GetxController {
 
         if (userSnapshot.exists) {
           // User exists in Firestore, navigate to NavigationMenu
-          Get.off(() => NavigationMenu());
+          Get.offAll(() => NavigationMenu());
         } else {
           // User does not exist in Firestore, navigate to LoginPage
           Get.offAll(() => LoginPage());

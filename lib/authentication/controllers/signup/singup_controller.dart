@@ -92,7 +92,7 @@ class SignUpController extends GetxController {
               "Your account has been created! Please verify your email to continue.");
 
       // Move to verify email screen
-      Get.to(() => VerfiyEmailScreen(
+      Get.off(() => VerfiyEmailScreen(
             email: email.text.trim(),
           ));
       CartController.instance.clearCart();

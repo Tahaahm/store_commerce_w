@@ -56,12 +56,6 @@ class SettingsPage extends StatelessWidget {
                 children: [
                   TSectionHeading(title: "Account Settings"),
                   TSettingsMenuTitle(
-                    icon: Iconsax.shopping_cart,
-                    title: "My Cart",
-                    subTitle: "add, remove products and move to checkout",
-                    onTap: () => Get.to(() => ShoppingCartPage()),
-                  ),
-                  TSettingsMenuTitle(
                     icon: Iconsax.security_card,
                     title: "Account Privacy",
                     subTitle: "Manage data usage and connected accounts",
@@ -77,6 +71,12 @@ class SettingsPage extends StatelessWidget {
                     height: TSize.spaceBtwItems,
                   ),
                   TSettingsMenuTitle(
+                    icon: Iconsax.shopping_cart,
+                    title: "My Cart",
+                    subTitle: "add, remove products and move to checkout",
+                    onTap: () => Get.to(() => ShoppingCartPage()),
+                  ),
+                  TSettingsMenuTitle(
                     icon: Get.isDarkMode ? Iconsax.moon : Iconsax.sun_15,
                     title: Get.isDarkMode ? 'Dark Theme' : 'Light Theme',
                     subTitle: "Manage Theme of Settings",
@@ -87,6 +87,14 @@ class SettingsPage extends StatelessWidget {
                         _themeController.changeThemeMode(value);
                       },
                     ),
+                  ),
+                  SizedBox(
+                    height: TSize.spaceBtwItems,
+                  ),
+                  TSettingsMenuTitle(
+                    icon: Iconsax.monitor_mobbile,
+                    title: "Version App",
+                    subTitle: "1.0.0",
                   ),
                   SizedBox(
                     height: TSize.spaceBtwSections,
