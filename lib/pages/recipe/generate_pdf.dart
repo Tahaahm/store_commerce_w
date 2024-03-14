@@ -249,8 +249,8 @@ class GeneratePdfPage extends StatelessWidget {
                                     cartItems,
                                     DateTime.now(),
                                     discount,
-                                    nameController
-                                        .text); // Update favorite products before clearing the cart
+                                    nameController.text,
+                                    totalPrice); // Update favorite products before clearing the cart
 
                                 Future.delayed(Duration(milliseconds: 1500),
                                     () {

@@ -8,14 +8,14 @@ class TLoaders {
   static successSnackBar(
       {required title,
       message = "",
-      duration = 3,
+      duration = 1,
       bacgroundColor = TColors.primaryColor}) {
     Get.snackbar(title, message,
         isDismissible: true,
         shouldIconPulse: true,
         colorText: Colors.white,
         backgroundColor: bacgroundColor,
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         duration: Duration(seconds: duration),
         margin: EdgeInsets.all(10),
         icon: Icon(
@@ -24,7 +24,7 @@ class TLoaders {
         ));
   }
 
-  static warningSnackBar({required title, message = "", duration = 3}) {
+  static warningSnackBar({required title, message = "", duration = 1}) {
     Get.snackbar(title, message,
         isDismissible: true,
         shouldIconPulse: true,
@@ -39,7 +39,7 @@ class TLoaders {
         ));
   }
 
-  static errorSnackBar({required title, message = "", duration = 3}) {
+  static errorSnackBar({required title, message = "", duration = 1}) {
     Get.snackbar(title, message,
         isDismissible: true,
         shouldIconPulse: true,
@@ -54,7 +54,7 @@ class TLoaders {
         ));
   }
 
-  static infoSnackBar({required title, message = "", duration = 3}) {
+  static infoSnackBar({required title, message = "", duration = 1}) {
     Get.snackbar(title, message,
         isDismissible: true,
         shouldIconPulse: true,

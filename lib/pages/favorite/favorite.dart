@@ -245,7 +245,7 @@ class _FavoritePageState extends State<FavoritePage> {
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          TLoaders.warningSnackBar(
+                          TLoaders.errorSnackBar(
                               title: "Oh Snap!",
                               message:
                                   "Cant add product from Favorite to cart");

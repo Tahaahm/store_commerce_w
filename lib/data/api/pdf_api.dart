@@ -822,9 +822,9 @@ class PdfApi {
             final isLastPage = context.pageNumber == context.pagesCount;
             if (isLastPage) {
               return pw.Container(
-                  height: 75,
+                  height: 35,
                   alignment: pw.Alignment.center,
-                  margin: const pw.EdgeInsets.only(top: 20.0),
+                  margin: const pw.EdgeInsets.only(top: 5.0),
                   child: pw.Column(children: [
                     pw.Divider(
                       color: PdfColors.black,
@@ -841,43 +841,43 @@ class PdfApi {
                                   children: [
                                     pw.Image(
                                       pw.MemoryImage(logoBytes1),
-                                      height: 50,
+                                      height: 25,
                                       width: 65,
                                     ),
-                                    pw.SizedBox(width: 8),
+                                    pw.SizedBox(width: 10),
                                     pw.Image(
                                       pw.MemoryImage(logoBytes2),
-                                      height: 50,
+                                      height: 25,
                                       width: 65,
                                     ),
-                                    pw.SizedBox(width: 8),
+                                    pw.SizedBox(width: 10),
                                     pw.Image(
                                       pw.MemoryImage(logoBytes3),
-                                      height: 50,
+                                      height: 25,
                                       width: 65,
                                     ),
-                                    pw.SizedBox(width: 8),
+                                    pw.SizedBox(width: 10),
                                     pw.Image(
                                       pw.MemoryImage(logoBytes4),
-                                      height: 50,
+                                      height: 25,
                                       width: 65,
                                     ),
-                                    pw.SizedBox(width: 8),
+                                    pw.SizedBox(width: 10),
                                     pw.Image(
                                       pw.MemoryImage(logoBytes5),
-                                      height: 50,
+                                      height: 25,
                                       width: 65,
                                     ),
-                                    pw.SizedBox(width: 8),
+                                    pw.SizedBox(width: 10),
                                     pw.Image(
                                       pw.MemoryImage(logoByte6),
-                                      height: 50,
+                                      height: 25,
                                       width: 65,
                                     ),
-                                    pw.SizedBox(width: 8),
+                                    pw.SizedBox(width: 10),
                                     pw.Image(
                                       pw.MemoryImage(logoByte7),
-                                      height: 50,
+                                      height: 25,
                                       width: 65,
                                     ),
                                   ]),

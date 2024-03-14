@@ -166,6 +166,7 @@ class TProductCardVertical extends StatelessWidget {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyLarge,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                       SizedBox(
                                         width: Dimentions.height10 / 5,
@@ -191,6 +192,7 @@ class TProductCardVertical extends StatelessWidget {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyLarge,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                       SizedBox(
                                         width: Dimentions.height10 / 5,
@@ -237,6 +239,7 @@ class TProductCardVertical extends StatelessWidget {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyLarge,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                       SizedBox(
                                         width: Dimentions.height10 / 5,
@@ -257,11 +260,15 @@ class TProductCardVertical extends StatelessWidget {
                                             .bodyLarge,
                                       ),
                                       Icon(Iconsax.code_1),
-                                      Text(
-                                        product.material.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
+                                      SizedBox(
+                                        width: Dimentions.height45,
+                                        child: Text(
+                                          product.material.toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                       SizedBox(
                                         width: Dimentions.height10 / 5,
@@ -373,6 +380,10 @@ class TProductCardVertical extends StatelessWidget {
                   child: SizedBox(
                     width: Dimentions.height60 * 3,
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: product.stock == 0
+                              ? TColors.primaryColor.withOpacity(0.5)
+                              : TColors.primaryColor),
                       onPressed: () {
                         cartController.addToCart(product, 1);
                       },

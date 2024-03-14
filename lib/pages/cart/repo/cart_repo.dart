@@ -103,7 +103,7 @@ class CartRepo {
   }
 
   Future<void> addToCartHistory(List<CartModel> cartItems, DateTime orderTime,
-      int discount, String buyerName) async {
+      int discount, String buyerName, double totalAmount) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       List<String> cartHistory = prefs.getStringList(_cartHistoryKey) ?? [];
@@ -118,8 +118,11 @@ class CartRepo {
         // Set the buyer name for the cart item
         item.buyName = buyerName;
 
+        // Set the totalAmount for the cart item
+        item.totalAmount = totalAmount;
+
         // Convert the cart item to a Map
-        final Map<String, dynamic> itemMap = item.toJson();
+        final Map<String, dynamic> itemMap = item.toMap();
 
         // Encode the cart item Map to JSON and add it to the cart history
         cartHistory.add(jsonEncode(itemMap));

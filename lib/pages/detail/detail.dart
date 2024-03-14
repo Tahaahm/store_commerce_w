@@ -61,7 +61,7 @@ class DetailPage extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              flex: 1,
+              flex: 2,
               child: TAppBar(
                 action: [
                   GestureDetector(

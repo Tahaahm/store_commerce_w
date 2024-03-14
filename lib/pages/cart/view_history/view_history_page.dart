@@ -1,11 +1,13 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, duplicate_ignore, deprecated_member_use
+// ignore_for_file: prefer_interpolation_to_compose_strings, prefer_const_constructors, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:store_commerce_shop/common/widgets/images/t_rounded_image.dart';
 import 'package:store_commerce_shop/common/widgets/layouts/grid_layout.dart';
 import 'package:store_commerce_shop/constant/colors.dart';
 import 'package:store_commerce_shop/constant/widgets/app_bar/custom_appbar.dart';
 import 'package:store_commerce_shop/models/cart_model/cart_model.dart';
+import 'package:store_commerce_shop/pages/cart/controller/exchange_controller.dart';
 import 'package:store_commerce_shop/util/dimention/dimention.dart';
 import 'package:store_commerce_shop/util/helpers/helper_functions.dart';
 
@@ -26,6 +28,7 @@ class ViewHistoryPage extends StatelessWidget {
     for (final item in cartItems) {
       totalDiscount = item.discount;
     }
+    final exchangeRateController = Get.put(ExchangeRateController());
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -175,7 +178,7 @@ class ViewHistoryPage extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(8.0),
         child: Container(
-          height: Dimentions.height20 * 3.5,
+          height: Dimentions.height20 * 4,
           decoration: BoxDecoration(
             color: dark ? TColors.dark : TColors.light,
             borderRadius: BorderRadius.circular(Dimentions.height12),
@@ -194,24 +197,29 @@ class ViewHistoryPage extends StatelessWidget {
                   children: [
                     Text(
                       totalDiscount.toString() + " %OFF",
-                      style: TextStyle(color: TColors.primaryColor),
+                      style: TextStyle(
+                          color: TColors.primaryColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       width: Dimentions.height10 / 2,
                     ),
                     Container(
-                      padding: EdgeInsets.all(Dimentions.height10),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Dimentions.height32,
+                          vertical: Dimentions.height16),
                       decoration: BoxDecoration(
                         borderRadius:
                             BorderRadius.circular(Dimentions.height20),
                         color: TColors.primaryColor,
                       ),
                       child: Text(
-                        // Display total quantity in the checkout button
+                        // Display total amount from the cart model
                         "${calculateFinalAmount(cartItems)}",
                         style: Theme.of(context)
                             .textTheme
-                            .bodyLarge!
+                            .titleMedium!
                             .apply(color: TColors.white),
                       ),
                     ),
@@ -226,14 +234,11 @@ class ViewHistoryPage extends StatelessWidget {
   }
 
   String calculateFinalAmount(List<CartModel> cartItems) {
-    double totalAmount = 0;
-    int totalDiscount = 0;
-
-    // Calculate total amount and total discount
-    for (final item in cartItems) {
-      totalAmount += (item.quantity ?? 0) * (item.product!.price);
-      totalDiscount = item.discount;
-    }
+    double totalAmount = double.parse(
+        (cartItems.isNotEmpty ? cartItems.first.totalAmount : '0.00')
+            .toString());
+    int totalDiscount = int.parse(
+        (cartItems.isNotEmpty ? cartItems.first.discount : '0').toString());
 
     // Subtract total discount from total amount to get final payable amount
     double finalAmount = totalAmount - (totalAmount * totalDiscount / 100);
@@ -241,7 +246,6 @@ class ViewHistoryPage extends StatelessWidget {
     // Round the final amount to two decimal places
     finalAmount = double.parse(finalAmount.round().toString());
 
-    // Return formatted string with total amount and discount
     return "\$$finalAmount";
   }
 }

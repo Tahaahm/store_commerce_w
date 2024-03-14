@@ -14,6 +14,7 @@ class CartModel {
   String? userId;
   int discount;
   String? buyName; // Added buyName field
+  double? totalAmount; // Added totalAmount field
 
   CartModel({
     this.id,
@@ -27,6 +28,7 @@ class CartModel {
     this.userId,
     this.discount = 0,
     this.buyName, // Initialized buyName field in the constructor
+    this.totalAmount, // Initialized totalAmount field in the constructor
   });
 
   Map<String, dynamic> toMap() {
@@ -42,6 +44,7 @@ class CartModel {
       'userId': userId,
       'discount': discount,
       'buyName': buyName, // Included buyName in the toMap method
+      'totalAmount': totalAmount, // Included totalAmount in the toMap method
     };
   }
 
@@ -58,6 +61,7 @@ class CartModel {
       userId: doc['userId'],
       discount: doc['discount'] ?? 0,
       buyName: doc['buyName'], // Get buyName from Firestore
+      totalAmount: doc['totalAmount'], // Get totalAmount from Firestore
     );
   }
 
@@ -74,6 +78,7 @@ class CartModel {
       userId: json['userId'],
       discount: json['discount'] ?? 0,
       buyName: json['buyName'], // Get buyName from JSON
+      totalAmount: json['totalAmount'], // Get totalAmount from JSON
     );
   }
 
@@ -90,6 +95,7 @@ class CartModel {
       'userId': userId,
       'discount': discount,
       'buyName': buyName, // Include buyName in the toJson method
+      'totalAmount': totalAmount, // Include totalAmount in the toJson method
     };
   }
 
