@@ -10,6 +10,9 @@ import 'package:store_commerce_shop/firebase_options.dart';
 import 'package:store_commerce_shop/util/themes/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+//store-commerce-shop   this is the name of firebase database from the cloud for both admin and the store
+//store called store_commerce_shop  this is the project flutter we are linked together
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
