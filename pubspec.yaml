@@ -34,7 +34,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.16.0
   firebase_core: ^2.15.0
-  firebase_storage: ^11.6.0
+  firebase_storage: ^11.6.10
   flutter:
     sdk: flutter
   flutter_cached_pdfview: ^0.4.2
