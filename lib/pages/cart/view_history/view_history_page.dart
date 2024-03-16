@@ -1,13 +1,11 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, prefer_const_constructors, unnecessary_string_interpolations
+// ignore_for_file: prefer_interpolation_to_compose_strings, prefer_const_constructors, unnecessary_string_interpolations, duplicate_ignore
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:store_commerce_shop/common/widgets/images/t_rounded_image.dart';
 import 'package:store_commerce_shop/common/widgets/layouts/grid_layout.dart';
 import 'package:store_commerce_shop/constant/colors.dart';
 import 'package:store_commerce_shop/constant/widgets/app_bar/custom_appbar.dart';
 import 'package:store_commerce_shop/models/cart_model/cart_model.dart';
-import 'package:store_commerce_shop/pages/cart/controller/exchange_controller.dart';
 import 'package:store_commerce_shop/util/dimention/dimention.dart';
 import 'package:store_commerce_shop/util/helpers/helper_functions.dart';
 
@@ -28,7 +26,6 @@ class ViewHistoryPage extends StatelessWidget {
     for (final item in cartItems) {
       totalDiscount = item.discount;
     }
-    final exchangeRateController = Get.put(ExchangeRateController());
 
     return Scaffold(
       body: SingleChildScrollView(

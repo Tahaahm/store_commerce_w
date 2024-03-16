@@ -381,7 +381,7 @@ class TProductCardVertical extends StatelessWidget {
                     width: Dimentions.height60 * 3,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          primary: product.stock == 0
+                          backgroundColor: product.stock == 0
                               ? TColors.primaryColor.withOpacity(0.5)
                               : TColors.primaryColor),
                       onPressed: () {
