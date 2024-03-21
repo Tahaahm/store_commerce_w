@@ -25,8 +25,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-jsonRead(json, {required bool allowListeners}) {}
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

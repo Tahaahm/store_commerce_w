@@ -112,6 +112,13 @@ class CartController extends GetxController {
             ),
           );
           _updateCart();
+
+          if (isTrue) {
+            TLoaders.successSnackBar(
+              title: "Product Added",
+              message: "${product.title} has been added to the cart.",
+            );
+          }
         } else {
           // If adding the new quantity exceeds the stock, show a warning
           TLoaders.warningSnackBar(

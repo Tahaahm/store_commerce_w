@@ -6,6 +6,6 @@ class ProductController extends GetxController {
   final CartController cartController = Get.find();
 
   void addToCart(ProductModel product, int quantity) {
-    cartController.addItem(product, quantity, true, "Product");
+    cartController.addItem(product, quantity, false, "Product");
   }
 }
