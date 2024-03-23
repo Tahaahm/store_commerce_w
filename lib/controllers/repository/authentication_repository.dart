@@ -124,6 +124,7 @@ class AuthenticationRepository extends GetxController {
       return userCredential;
     } on FirebaseAuthException catch (e) {
       // Handle FirebaseAuthException
+      print("wd");
       throw TFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       // Handle FirebaseException

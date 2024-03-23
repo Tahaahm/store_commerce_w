@@ -6,7 +6,10 @@ class TFirebaseAuthException implements Exception {
   TFirebaseAuthException(this.code);
 
   String get message {
+    print(code);
     switch (code) {
+      case "invalid-credential":
+        return "The email address or the password is not correct";
       case "email-already-in-use":
         return "The email address is already registered. Please use a different email.";
       case "invalid-email":
@@ -51,6 +54,8 @@ class TFirebaseAuthException implements Exception {
         return "No user found for the given email or UID";
       case "user-invalid-credntial":
         return "The supplied credntal is malformed or has has expired";
+      case "too-many-requests":
+        return "Too many request please try after 60 seconds";
       default:
         return "Unknown error occurred with code: $code";
     }
